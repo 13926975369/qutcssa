@@ -11,3 +11,4 @@
 use think\Route;
 
 Route::rule('index','qutcssa/v1.Index/index','POST',['https' => false]);
+Route::rule('admin','qutcssa/View/admin','GET',['https' => false]);
