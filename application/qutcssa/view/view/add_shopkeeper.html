@@ -7,7 +7,7 @@
 </head>
 <body>
     <center>
-        <form id="tf" style="margin-top: 5vw">
+        <form action="/handler" method="post" enctype="multipart/form-data" id="tf" name="tf" style="margin-top: 5vw">
             <table>
                 <input name="t" value="add_shopkeeper" style="display: none">
                 <tr><td>商铺名称：</td><td align="left"><input id="username" name="username"></td></tr>
@@ -47,24 +47,30 @@
                     <option value="Y">Y</option>
                     <option value="Z">Z</option>
                 </select></td></tr>
-                <tr><td>商铺图片：</td><td align="left"><input type="file" align="left" name="img"/></td></tr>
-                <tr><td></td><td align="left"><input type="button" onclick="test()" value="提交"></td></tr>
+                <tr><td>商铺图片：</td><td align="left"><input id = "img" type="file" align="left" name="img"/></td></tr>
+                <tr><td></td><td align="left"><input type="submit" value="提交"></td></tr>
             </table>
         </form>
     </center>
 </body>
 <script>
-    function test() {
-        alert('lala');
-    }
     
     function up() {
-        var form = new FormData(document.getElementById("tf"));
+        var form_data  = document.getElementById("img");
+        console.log(form_data.files[0]);
         $.ajax({
-            url:"{:url('all_handler')}",
+            url:"/handler",
             type:'POST',
             dataType:'json',
-            data:form,
+            data:{
+                "username": "一个商铺",
+                "address": "澳大利亚",
+                "phone": "12345678987",
+                "description": "周六日七五折",
+                "type": "美食",
+                "first": "A",
+                "img":form_data.files[0]
+            },
             processData:false,
             contentType:false,
             success:function (result) {

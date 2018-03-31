@@ -8,5 +8,5 @@
 return [
     'token_expire_in' => 3592000,  //缓存存在7200秒（两小时）
     'photo_url_prefix' => COMMON_PATH,
-    'image_root' => 'https://www.yiluzou.cn/learning/public/'
+    'image_root' => 'http://gxxxxxx/'
 ];
