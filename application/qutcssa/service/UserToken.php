@@ -10,6 +10,7 @@ namespace app\qutcssa\service;
 use app\qutcssa\exception\TokenException;
 use app\qutcssa\exception\WeChatException;
 use app\qutcssa\lib\enum\ScopeEnum;
+use think\Db;
 use think\Exception;
 use app\qutcssa\model\User as UserModel;
 
@@ -54,6 +55,24 @@ class UserToken extends Token
         }
     }
 
+    public function get2($data){
+        $result = curl_get($this->wxLoginurl);
+        //返回的字符串变成数组,true是数组，false是对象
+        $wxResult = json_decode($result, true);
+        if (empty($wxResult)){
+            throw new Exception('获取session_key及openID时异常，微信内部错误');
+        }
+        else{
+            $loginFail = array_key_exists('errcode',$wxResult);
+            if ($loginFail){
+                $this->processLoginError($wxResult);
+            }else{
+                //检测没有报错的话就去取token
+                return $this->grantToken2($wxResult,$data);
+            }
+        }
+    }
+
     /*
      * 通过wxResult生成令牌并存入缓存，并且没有改用户的话注册新用户，有该用户的话即登录
      * @param    微信小程序接口网页获取的信息wxResult
@@ -72,8 +91,23 @@ class UserToken extends Token
             $uid = $user->id;
         }else{
             //没有的话新建
-            $uid = $this->newUser($openid);
+//            $uid = $this->newUser($openid);
+            return 1;
         }
+        //将token存入缓存中
+        $cachedValue = $this->prepareCachedValue($wxResult,$uid);
+        $token = $this->saveToCache($cachedValue);
+        return $token;
+    }
+
+    private function grantToken2($wxResult,$data){
+        //拿到openID，在数据库里看一下openID存不存在
+        //如果存在不处理，不存在数据库里新增一条user
+        //生成令牌，准备缓存数据，写入缓存
+        //key：令牌
+        //value：wxResult，uid，scope（决定用户身份）
+        $openid = $wxResult['openid'];
+        $uid = $this->newUser($openid,$data);
         //将token存入缓存中
         $cachedValue = $this->prepareCachedValue($wxResult,$uid);
         $token = $this->saveToCache($cachedValue);
@@ -120,15 +154,20 @@ class UserToken extends Token
      * @param    openid：微信小程序唯一标示
      * @return   id
      * */
-    private function newUser($openid){
+    private function newUser($openid,$data){
         //注册，并且查到用户id号
         //时间戳 date("Y-m-d H:i:s",time())
         date_default_timezone_set("PRC");
-        $user = UserModel::create([
+        $user = Db::table('user')->insertGetId([
             'openid' => $openid ,
-            'time' => (string)time()
+            'time' => (string)time(),
+            'name' => $data['name'],
+            'sex' => $data['sex'],
+            'birthday' => $data['birthday'],
+            'student_no' => $data['student_no'],
+            'email' => $data['email']
         ]);
-        return $user->id;
+        return $user;
     }
 
     /*

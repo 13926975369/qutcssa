@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/static/jquery-3.2.1.min.js"></script>
+    <style type="text/css" rel="stylesheet">
+        a:visited {color: #0000FF}
+        a:hover {color: #FF0000}
+        a{ text-decoration:none}
+    </style>
+</head>
+<body>
+<center>
+    <h2>置顶横幅</h2>
+    <table cellpadding="3" width="85%" border="1" cellspacing="0">
+        <tr>
+            <td style="width: 20%;">广告名字</td>
+            <td style="width: 10%;">广告图片</td>
+            <td style="width: 10%;">广告位置</td>
+            <td style="width: 20%;">修改</td>
+        </tr>
+        {volist name="result" id="vo"}
+        <tr>
+            <td style="width: 20%;">{$vo.name}</td>
+            <td style="width: 10%;">{$vo.photo}</td>
+            <td style="width: 10%;">{$vo.rank}</td>
+            <td style="width: 20%;"><button><a href={$vo.edit}>修改</a></button></td>
+        </tr>
+        {/volist}
+    </table>
+    <h2>每日推荐</h2>
+    <table cellpadding="3" width="85%" border="1" cellspacing="0">
+        <tr>
+            <td style="width: 20%;">商铺名字</td>
+            <td style="width: 10%;">广告图片</td>
+            <td style="width: 10%;">广告位置</td>
+            <td style="width: 20%;">修改</td>
+        </tr>
+        {volist name="result1" id="vo"}
+        <tr>
+            <td style="width: 20%;">{$vo.name}</td>
+            <td style="width: 10%;">{$vo.photo}</td>
+            <td style="width: 10%;">{$vo.rank}</td>
+            <td style="width: 20%;"><button><a href={$vo.edit}>修改</a></button></td>
+        </tr>
+        {/volist}
+    </table>
+</center>
+</body>
+<script>
+    function edit(id) {
+        window.location.href = "http://gxxxxxx/edit?id="+id;
+    }
+</script>
+</html>

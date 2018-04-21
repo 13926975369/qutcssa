@@ -16,6 +16,24 @@ class Token extends BaseException
     public function getToken($code='') {
         $ut = new UserToken($code);
         $token = $ut->get();
+        if ($token == 1){
+            return json_encode([
+                'msg' => '第一次登录',
+                'code' => 300,
+            ]);
+        }
+        $msg = [
+            'token' => $token
+        ];
+        return json_encode([
+            'msg' => $msg,
+            'code' => 200,
+        ]);
+    }
+
+    public function getToken2($code='',$data) {
+        $ut = new UserToken($code);
+        $token = $ut->get2($data);
         $msg = [
             'token' => $token
         ];

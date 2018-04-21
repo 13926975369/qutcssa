@@ -7,20 +7,21 @@
 </head>
 <body>
     <center>
-        <form action="/handler" method="post" enctype="multipart/form-data" id="tf" name="tf" style="margin-top: 5vw">
-            <table>
+        <form action="/qutcssa/public/index.php/handler" method="post" enctype="multipart/form-data" id="tf" name="tf" style="margin-top: 5vw">
+            <table id="tb">
                 <input name="t" value="add_shopkeeper" style="display: none">
                 <tr><td>商铺名称：</td><td align="left"><input id="username" name="username"></td></tr>
                 <tr><td>商铺地址：</td><td align="left"><input id="address" name="address" align="left"></td></tr>
                 <tr><td>商铺联系电话：</td><td align="left"><input id="phone" name="phone" align="left"></td></tr>
-                <tr><td>商铺的折扣描述：</td><td align="left"><textarea rows="7" cols="40" name="description" id="description" align="left"></textarea></td></tr>
+                <tr><td>商铺官网地址：</td><td align="left"><input name="to" align="left"></td></tr>
+                <tr><td>商铺的折扣描述：</td><td align="left"><input id = "description" type="file" align="left" name="description"/></td></tr>
                 <tr><td>商铺类型：</td><td align="left"><select id="type" name="type">
                     {volist name="result" id="vo"}
                     <option value={$vo.type}>{$vo.type}</option>
                     {/volist}
                 </select></td></tr>
                 <tr><td>商铺首字母：</td><td align="left"><select id="first" name="first" align="left">
-                    <option value="A">A</option>
+                    <option value="A" selected="selected">A</option>
                     <option value="B">B</option>
                     <option value="C">C</option>
                     <option value="D">D</option>
@@ -47,42 +48,28 @@
                     <option value="Y">Y</option>
                     <option value="Z">Z</option>
                 </select></td></tr>
-                <tr><td>商铺图片：</td><td align="left"><input id = "img" type="file" align="left" name="img"/></td></tr>
+                <tr><td>商铺logo：</td><td align="left"><input id = "img" type="file" align="left" name="img"/></td></tr>
+                <tr><td>商铺有几张图片要上传：</td><td align="left"><input id="number" name="number" align="left"><button type="button" onclick="change()">确认</button></td></tr>
+
+
+
                 <tr><td></td><td align="left"><input type="submit" value="提交"></td></tr>
             </table>
         </form>
     </center>
 </body>
 <script>
-    
-    function up() {
-        var form_data  = document.getElementById("img");
-        console.log(form_data.files[0]);
-        $.ajax({
-            url:"/handler",
-            type:'POST',
-            dataType:'json',
-            data:{
-                "username": "一个商铺",
-                "address": "澳大利亚",
-                "phone": "12345678987",
-                "description": "周六日七五折",
-                "type": "美食",
-                "first": "A",
-                "img":form_data.files[0]
-            },
-            processData:false,
-            contentType:false,
-            success:function (result) {
-                console.log(result);
-                alert("成功");
-                window.location.href = "{:url('main')}";
-            },
-            error:function (result) {
-                alert("失败");
-                window.history.go(-1);
-            }
-        });
+    function change() {
+        var number = document.getElementById('number').value;
+        var tb = document.getElementById('tb');
+        for (var i=0;i<number;i++)
+        {
+            var newItem=document.createElement("tr");
+            var str = "photo["+i+"]";
+            newItem.innerHTML = '<td>商铺图片'+(i + 1)+'：</td><td align="left"><input id = '+str+' type="file" align="left" name="img"/></td>';
+            tb.insertBefore(newItem,tb.childNodes[tb.childNodes.length - 1]);
+        }
+
     }
 </script>
 </html>

@@ -10,6 +10,8 @@
 // +----------------------------------------------------------------------
 use think\Route;
 
-Route::rule('index','qutcssa/v1.Index/index','POST',['https' => false]);
-Route::rule('admin','qutcssa/View/admin','GET',['https' => false]);
-Route::rule('handler','qutcssa/View/all_handler','POST',['https' => false]);
+Route::rule('index','qutcssa/v1.Index/index','POST',['https' => true]);
+Route::rule('admin','qutcssa/View/admin','GET',['https' => true]);
+Route::rule('handler','qutcssa/View/all_handler','POST',['https' => true]);
+Route::rule('edit','qutcssa/View/edit','GET',['https' => true]);
+Route::rule('show_photo','qutcssa/View/show_photo','POST',['https' => true]);

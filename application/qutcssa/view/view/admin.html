@@ -23,6 +23,9 @@
             margin-top: 30px;
             margin-left: 9%;
         }
+        a:visited {color: #0000FF}
+        a:hover {color: #FF0000}
+        a{ text-decoration:none}
     </style>
 </head>
 <body>
@@ -30,8 +33,8 @@
         <a class="cli" href="{:url('add_shopkeeper')}"  target="mainFrame">添加商户</a>
         <a class="cli" href="{:url('manager_shopkeeper')}"  target="mainFrame">管理商户</a>
         <a class="cli" href="{:url('manager_shoptype')}"  target="mainFrame">管理商铺类型</a>
-        <a class="cli" href=""  target="mainFrame">添加广告</a>
-        <a class="cli" href=""  target="mainFrame">管理广告</a>
+        <a class="cli" href="{:url('manager_advertisement')}"  target="mainFrame">管理广告</a>
+        <a class="cli" href="{:url('manager_custom')}"  target="mainFrame">管理客服</a>
     </div>
     <div class="main">
         <iframe src="{:url('main')}" frameborder="0" name="mainFrame" width="100%" height="960px" style="width: 100%;display: flex;box-sizing: border-box;flex-direction: row;justify-content: center;align-content: center"></iframe>

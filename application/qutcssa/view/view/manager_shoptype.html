@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script type="text/javascript" src="/static/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/qutcssa/public/static/jquery-3.2.1.min.js"></script>
+    <style type="text/css" rel="stylesheet">
+        a:visited {color: #0000FF}
+        a:hover {color: #FF0000}
+        a{ text-decoration:none}
+    </style>
 </head>
 <body>
 <center>
     <h2>添加商品类别</h2>
-    <form action="/handler" method="post" name="tf" style="margin-top: 1vw">
+    <form action="/qutcssa/public/index.php/handler" method="post" name="tf" style="margin-top: 1vw">
         <input name="t" value="add_type" style="display: none;">
         想要添加的商品类别：<input type="text" name="name">
         <input type="submit" value="添加">
@@ -29,7 +34,7 @@
 </center>
 </body>
 <script>
-    var url = 'http://gxxxxxx/handler';
+    var url = 'https://www.yiluzou.cn/qutcssa/public/index.php/handler';
     function del(id) {
         $.ajax({
             url: url,

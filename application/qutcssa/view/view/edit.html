@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css" rel="stylesheet">
+        a:visited {color: #0000FF}
+        a:hover {color: #FF0000}
+        a{ text-decoration:none}
+    </style>
+</head>
+<body>
+<center>
+    <form action="/qutcssa/public/index.php/handler" method="post" enctype="multipart/form-data" id="tf" name="tf" style="margin-top: 5vw">
+        <table>
+            <input name="t" value="edit" style="display: none">
+            <input name="id" value=<?php echo $id?> style="display: none">
+            <tr><td>关联商铺序号：</td><td align="left"><input name="name"></td></tr>
+            <tr><td>广告图片：</td><td align="left"><input id = "img" type="file" align="left" name="img"/></td></tr>
+            <tr><td></td><td align="left"><input type="submit" value="提交"></td></tr>
+        </table>
+    </form>
+</center>
+</body>
+</html>

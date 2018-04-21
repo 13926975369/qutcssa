@@ -3,30 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script type="text/javascript" src="/static/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/qutcssa/public/static/jquery-3.2.1.min.js"></script>
+    <style type="text/css" rel="stylesheet">
+        a:visited {color: #0000FF}
+        a:hover {color: #FF0000}
+        a{ text-decoration:none}
+    </style>
 </head>
 <body>
 <center>
+    <form action="/qutcssa/public/index.php/show_photo" method="post" style="display: none">
+        <input name="id" id="no">
+        <input id="sub" type="submit">
+    </form>
     <table cellpadding="8" width="90%" border="1" cellspacing="0">
         <tr>
+            <td style="width: 5%;">商铺序号</td>
             <td style="width: 5%;">商铺名字</td>
             <td style="width: 15%;">商铺地址</td>
-            <td style="width: 30%;">折扣描述</td>
+            <td style="width: 15%;">折扣描述</td>
             <td style="width: 5%;">商铺类型</td>
             <td style="width: 5%;">商铺首字母</td>
             <td style="width: 10%;">联系电话</td>
-            <td style="width: 25%;">图片</td>
+            <td style="width: 10%;">logo</td>
+            <td style="width: 15%;">图片</td>
             <td style="width: 5%;">操作</td>
         </tr>
         {volist name="result" id="vo"}
         <tr>
+            <td style="width: 5%;">{$vo.id}</td>
             <td style="width: 5%;">{$vo.username}</td>
             <td style="width: 15%;">{$vo.address}</td>
-            <td style="width: 30%;">{$vo.description}</td>
+            <td style="width: 15%;">{$vo.description}</td>
             <td style="width: 5%;">{$vo.type}</td>
             <td style="width: 5%;">{$vo.first}</td>
             <td style="width: 10%;">{$vo.phone}</td>
-            <td style="width: 25%;">{$vo.photo}</td>
+            <td style="width: 10%;">{$vo.logo}</td>
+            <td style="width: 15%;"><button type="button" onclick="show({$vo.id})">查看</button></td>
             <td style="width: 5%;"><button onclick="del({$vo.id})">删除</button></td>
         </tr>
         {/volist}
@@ -34,7 +47,7 @@
 </center>
 </body>
 <script>
-    var url = 'http://gxxxxxx/handler';
+    var url = 'https://www.yiluzou.cn/qutcssa/public/index.php/handler';
     function del(id) {
         $.ajax({
             url: url,
@@ -56,6 +69,11 @@
                 alert("失败");
             }
         });
+    }
+    
+    function show(id) {
+        document.getElementById('no').value = id;
+        document.getElementById('sub').click();
     }
 </script>
 </html>
